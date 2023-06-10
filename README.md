@@ -1,7 +1,7 @@
 # Whammy-Maximizer
 Max4live device allows to control Digitech (tm) "Whammy" guitar pedal from Ableton Live
 
-![alt text](https://github.com/SpacewormSera/Whammy-Maximizer/blob/[main]/max.png?raw=true)
+![alt text](https://github.com/SpacewormSera/Whammy-Maximizer/blob/main/max.png?raw=true)
 
 The release version you can download from: wave42.gumroad.com/l/whammymaximizer
 
