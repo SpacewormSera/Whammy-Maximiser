@@ -3,9 +3,12 @@ const fs = require('fs')
 
 const configPath = './config.json';
 
-maxApi.post('---> Script started');
-
+// holds value from the "Variation" knob
 let variation = 0;
+
+// each sub array can be chosen via variation variable
+// the numbers represent midi programs on the Whammy device
+// check Whammy manual to adapt the numbers
 let variations = [
   [1, 3, 4, 6, 7],
   [2, 3, 5],
@@ -15,8 +18,6 @@ let variations = [
   [1, 3, 5, 7],
   [1, 2, 3, 4, 5, 6, 7],
 ];
-
-loadConfiguration();
 
 function loadConfiguration() {
   if (fs.existsSync(configPath)) {
@@ -48,14 +49,17 @@ function mapControlChangeToWhammy(midiValue, steps, mapArray) {
   return mapArray[pointer];
 }
 
-///////////////////=-HANDLERS-=/////////////////////
+///////////////////=-RUN-=/////////////////////
+
+loadConfiguration();
 
 // main logic
 maxApi.addHandler('midi', (ccNum, ccVal) => {
+  // reverse exp pedal
   ccVal = 127 - ccVal;
   // maxApi.post('---> midiValue pre ', ccNum, ccVal)
 
-  if (ccNum !== 123) { // prevenr Ableton's sending CC-123 when a track stops
+  if (ccNum !== 123) { // prevent Ableton's sending CC-123 when a track stops
     maxApi.outlet(mapControlChangeToWhammy(ccVal, variations[variation].length, getVariation(variation)));
   }
 })
